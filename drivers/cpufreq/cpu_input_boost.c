@@ -105,6 +105,7 @@ static unsigned int get_max_boost_freq(struct cpufreq_policy *policy)
 	return min(freq, policy->max);
 }
 
+extern int kp_active_mode(void);
 static unsigned int get_min_freq(struct cpufreq_policy *policy)
 {
 	unsigned int freq;
@@ -113,6 +114,13 @@ static unsigned int get_min_freq(struct cpufreq_policy *policy)
 		freq = cpu_freq_min_little;
 	else
 		freq = cpu_freq_min_big;
+
+	if (kp_active_mode() == 3) {
+		if (cpumask_test_cpu(policy->cpu, cpu_perf_mask))
+			freq = cpu_freq_min_big;
+		else if (cpumask_test_cpu(policy->cpu, cpu_prime_mask))
+			freq = cpu_freq_min_prime;
+	}
 
 	return max(freq, policy->cpuinfo.min_freq);
 }
