@@ -13,8 +13,8 @@ DEFCONFIG="vendor/ginkgo-perf_defconfig"
 
 export PATH="$TC_DIR/bin:$PATH"
 
-export KBUILD_BUILD_USER=adithya
-export KBUILD_BUILD_HOST=ghostrider_reborn
+export KBUILD_BUILD_USER=danyscape
+export KBUILD_BUILD_HOST=Jiu
 
 if test -z "$(git rev-parse --show-cdup 2>/dev/null)" &&
    head=$(git rev-parse --verify HEAD 2>/dev/null); then
