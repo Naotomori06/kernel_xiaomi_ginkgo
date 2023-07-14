@@ -714,6 +714,7 @@ static ssize_t show_scaling_cur_freq(struct cpufreq_policy *policy, char *buf)
 	return ret;
 }
 
+extern int kp_active_mode(void);
 static int cpufreq_set_policy(struct cpufreq_policy *policy,
 				struct cpufreq_policy *new_policy);
 
@@ -729,6 +730,7 @@ static ssize_t store_##file_name					\
 									\
 	if (&policy->object == &policy->min &&				\
 			is_battery_saver_on())				\
+	if (kp_active_mode() == 3)					\
 		return count;						\
 									\
 	memcpy(&new_policy, policy, sizeof(*policy));			\
