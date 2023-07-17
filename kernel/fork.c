@@ -2250,8 +2250,9 @@ long _do_fork(unsigned long clone_flags,
 	long nr;
 
 	/* Boost DDR bus to the max for 50 ms when userspace launches an app */
-	if (task_is_zygote(current) && df_boost_within_input(1000))
+	if (task_is_zygote(current)) {
 		devfreq_boost_kick_max(DEVFREQ_CPU_DDR_BW, 50);
+	}
 
 	/*
 	 * Determine whether and which event to report to ptracer.  When
